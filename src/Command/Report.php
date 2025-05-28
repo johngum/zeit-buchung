@@ -37,9 +37,8 @@ class Report extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|null
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new CustomStyle($input, $output);
 
@@ -54,7 +53,7 @@ class Report extends Command
             return $e->getCode();
         }
 
-        return null;
+        return Command::SUCCESS;
     }
 
     /**

@@ -12,11 +12,6 @@ use ZeitBuchung\Exception\ZeitBuchungException;
 use ZeitBuchung\Helper\RecordFile;
 use ZeitBuchung\Style\CustomStyle;
 
-/**
- * Class Start
- *
- * @package ZeitBuchung\Command
- */
 class Start extends Command
 {
     /** @var CustomStyle */
@@ -24,8 +19,6 @@ class Start extends Command
 
     /**
      * configures the command (name, description, help)
-     *
-     * @return void
      */
     protected function configure(): void
     {
@@ -36,13 +29,7 @@ class Start extends Command
         $this->addOption('task', 't', InputOption::VALUE_OPTIONAL, 'A task id to group records');
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int|null
-     * @throws Exception
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new CustomStyle($input, $output);
 
@@ -58,6 +45,6 @@ class Start extends Command
             return $e->getCode();
         }
 
-        return null;
+        return Command::SUCCESS;
     }
 }

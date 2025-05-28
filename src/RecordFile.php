@@ -189,7 +189,8 @@ class RecordFile
                 $stop = new DateTime();
             }
         } else {
-            $stop = new DateTime();
+            // don't stop record on invalid input
+            exit();
         }
 
         $lastRecord->setEnd($stop);
@@ -234,17 +235,18 @@ class RecordFile
      */
     public function start(string $message, ?string $inputTime = '', ?string $task = null): void
     {
-        if ($this->checkForUnstoppedRecord()) {
-            $this->stop($inputTime);
-            $this->io->newLine(2);
-        }
-
         $checkedInputTime = $this->checkInputTime($inputTime);
 
         if (null !== $checkedInputTime) {
             $start = $checkedInputTime;
         } else {
-            $start = new DateTime();
+            // don't start record on invalid input
+            exit();
+        }
+
+        if ($this->checkForUnstoppedRecord()) {
+            $this->stop($inputTime);
+            $this->io->newLine(2);
         }
 
         $this->contentArray[] = new RecordStructure($start, null, $message, 0, $task);
@@ -311,7 +313,7 @@ class RecordFile
         $lastRecord = $this->contentArray[$lastRecordKey];
 
         $calculatedTime = $this->calculateTime(
-            strtotime($lastRecord->getHumanReadableStartTime()),
+            $lastRecord->getStart()->getTimestamp(),
             strtotime(date('H:i:s'))
         );
 
@@ -528,6 +530,10 @@ class RecordFile
                 foreach ($this->contentArray as $row) {
                     $rows[] = $row->toArray();
                 }
+
+                usort($rows, static function ($a, $b) {
+                    return $a['start'] > $b['start'];
+                });
             }
 
             $return['rows'] = $rows;

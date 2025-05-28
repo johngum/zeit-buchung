@@ -3,15 +3,15 @@
     "description": "Console tool to record working time.",
     "type": "project",
     "require": {
-        "symfony/console": "^4.3",
-        "php": "^7.2",
+        "symfony/console": "^7.0",
+        "php": "^8.2",
         "ext-json": "*"
     },
     "authors": [
         {
             "name": "Lukas-Hubert von Zukowski",
             "email": "tausendstel.licht@gmail.com"
-        }
+	}
     ],
     "bin": [
         "bin/zeit-buchung.php"

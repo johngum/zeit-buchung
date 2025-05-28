@@ -9,11 +9,6 @@ use ZeitBuchung\Exception\ZeitBuchungException;
 use ZeitBuchung\Helper\RecordFile;
 use ZeitBuchung\Style\CustomStyle;
 
-/**
- * Class Status
- *
- * @package ZeitBuchung\Command
- */
 class Status extends Command
 {
     /** @var CustomStyle */
@@ -35,7 +30,7 @@ class Status extends Command
      * @param OutputInterface $output
      * @return int|null
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new CustomStyle($input, $output);
 
@@ -48,6 +43,6 @@ class Status extends Command
             return $e->getCode();
         }
 
-        return null;
+        return Command::SUCCESS;
     }
 }

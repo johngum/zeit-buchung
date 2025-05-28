@@ -39,7 +39,7 @@ class Stop extends Command
      * @return int|null
      * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new CustomStyle($input, $output);
 
@@ -54,6 +54,6 @@ class Stop extends Command
             return $e->getCode();
         }
 
-        return null;
+        return Command::SUCCESS;
     }
 }
